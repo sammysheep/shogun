@@ -45,6 +45,7 @@
 
 
 /// workaround a bug in std cmath
+/*
 #ifdef _GLIBCXX_CMATH
 #if _GLIBCXX_USE_C99_MATH
 #if !_GLIBCXX_USE_C99_FP_MACROS_DYNAMIC
@@ -68,6 +69,7 @@
 #endif
 #endif
 #endif
+*/
 /// end of workaround a bug in std cmath
 
 #ifdef _WIN32
@@ -379,6 +381,12 @@ class CMath : public CSGObject
 		/** @return gamma function of input */
 		static inline float64_t tgamma(float64_t x)
 		{
+			return ::tgamma((double) x);
+		}
+
+		static inline float64_t gamma(float64_t x)
+		{
+            // MacOS: gamma() is the same function as tgamma. Its use is deprecated.
 			return ::tgamma((double) x);
 		}
 
@@ -1463,11 +1471,7 @@ class CMath : public CSGObject
 		/// checks whether a float is finite
 		inline static int is_finite(double f)
 		{
-#if defined(isfinite) && !defined(SUNOS)
 			return isfinite(f);
-#else
-			return finite(f);
-#endif
 		}
 
 		/// checks whether a float is infinity

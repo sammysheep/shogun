@@ -57,11 +57,14 @@ enum EMessageType
 #define NUM_LOG_LEVELS 10
 #define FBUFSIZE 4096
 
-#ifdef DARWIN
-#define CONST_DIRENT_T struct dirent
-#else //DARWIN
+// Not needed in modern macOS
+//#ifdef DARWIN
+//#define CONST_DIRENT_T struct dirent
+//#else //DARWIN
+
 #define CONST_DIRENT_T const struct dirent
-#endif //DARWIN
+
+//#endif //DARWIN
 
 #define SG_SET_LOCALE_C setlocale(LC_ALL, "C")
 #define SG_RESET_LOCALE setlocale(LC_ALL, "")
